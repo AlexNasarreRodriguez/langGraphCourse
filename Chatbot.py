@@ -28,10 +28,16 @@ user_input = input("User: ")
 
 while user_input != 'exit':
     conversation_history.append(HumanMessage(content=user_input))
-    
     result = agent.invoke({'messages': conversation_history}) 
-    
-    print(result['messages'])
     conversation_history = result['messages']
-    
     user_input = input("User: ")
+
+with open('chatbot.txt', 'w') as file:
+    file.write('Your conversation log:\n')
+    for message in conversation_history:
+        if isinstance(message, HumanMessage):
+            file.write(f"User: {message.content}\n")
+        elif isinstance(message, AIMessage):
+            file.write(f"AI: {message.content}\n\n")
+    file.write('End of conversation\n')
+print("Conversation saved to chatbot.txt") 
