@@ -2,3 +2,5 @@
 .env
 chatbot.txt
 graph.ipynb
+__*
+chroma.sqlite3
